@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Logo, FormRow, Alert } from '../components';
 import Wrapper from '../assests/wrappers/RegisterPage';
 import { useAppContext } from '../context/appContext';
-
+import { useNavigate } from 'react-router-dom';
 const initialState = {
 	name: '',
 	email: '',
@@ -11,8 +11,10 @@ const initialState = {
 };
 
 const Register = () => {
+	const navigate = useNavigate();
 	const [values, setValues] = useState(initialState);
-	const { isLoading, showAlert, displayAlert } = useAppContext();
+	const { user, isLoading, showAlert, displayAlert, setupUser } =
+		useAppContext();
 
 	const toggleMember = () => {
 		setValues({ ...values, isMember: !values.isMember });
@@ -21,7 +23,6 @@ const Register = () => {
 	const handleChange = (e) => {
 		setValues({ ...values, [e.target.name]: e.target.value });
 	};
-
 	const onSubmit = (e) => {
 		e.preventDefault();
 		const { name, email, password, isMember } = values;
@@ -29,7 +30,30 @@ const Register = () => {
 			displayAlert();
 			return;
 		}
+		const currentUser = { name, email, password };
+		if (isMember) {
+			setupUser({
+				currentUser,
+				endPoint: 'login',
+				alertText: 'Login Successful! Redirecting...',
+			});
+		} else {
+			setupUser({
+				currentUser,
+				endPoint: 'register',
+				alertText: 'User Created! Redirecting...',
+			});
+		}
 	};
+
+	useEffect(() => {
+		if (user) {
+			setTimeout(() => {
+				navigate('/');
+			}, 3000);
+		}
+	}, [user, navigate]);
+
 	return (
 		<Wrapper className="full-page">
 			<form className="form" onSubmit={onSubmit}>
@@ -56,11 +80,11 @@ const Register = () => {
 					value={values.password}
 					handleChange={handleChange}
 				/>
-				<button type="submit" className="btn btn-block">
-					Submit
+				<button type="submit" className="btn btn-block" disabled={isLoading}>
+					submit
 				</button>
 				<p>
-					{values.isMember ? 'Not a member yet' : 'Already a member'}
+					{values.isMember ? 'Not a member yet?' : 'Already a member?'}
 					<button type="button" onClick={toggleMember} className="member-btn">
 						{values.isMember ? 'Register' : 'Login'}
 					</button>
@@ -69,5 +93,4 @@ const Register = () => {
 		</Wrapper>
 	);
 };
-
 export default Register;
