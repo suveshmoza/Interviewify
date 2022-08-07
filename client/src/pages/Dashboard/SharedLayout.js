@@ -16,7 +16,6 @@ const SharedLayout = () => {
 					</div>
 				</div>
 			</main>
-			<Outlet />
 		</Wrapper>
 	);
 };

@@ -1,37 +1,13 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faChartColumn,
-	faAddressCard,
-	faClipboardList,
-	faNotesMedical,
-} from '@fortawesome/free-solid-svg-icons';
+import { IoBarChartSharp } from 'react-icons/io5';
+import { MdQueryStats } from 'react-icons/md';
+import { FaWpforms } from 'react-icons/fa';
+import { ImProfile } from 'react-icons/im';
 
 const links = [
-	{
-		id: 1,
-		text: 'stats',
-		path: '/',
-		icons: <FontAwesomeIcon icon={faChartColumn} />,
-	},
-	{
-		id: 2,
-		text: 'all-jobs',
-		path: 'all-jobs',
-		icons: <FontAwesomeIcon icon={faClipboardList} />,
-	},
-	{
-		id: 3,
-		text: 'add-job',
-		path: 'add-job',
-		icons: <FontAwesomeIcon icon={faNotesMedical} />,
-	},
-	{
-		id: 4,
-		text: 'profile',
-		path: 'profile',
-		icons: <FontAwesomeIcon icon={faAddressCard} />,
-	},
+	{ id: 1, text: 'stats', path: '/', icon: <IoBarChartSharp /> },
+	{ id: 2, text: 'all jobs', path: 'all-jobs', icon: <MdQueryStats /> },
+	{ id: 3, text: 'add job', path: 'add-job', icon: <FaWpforms /> },
+	{ id: 4, text: 'profile', path: 'profile', icon: <ImProfile /> },
 ];
 
 export default links;
